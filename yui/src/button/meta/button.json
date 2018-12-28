@@ -1,0 +1,9 @@
+{
+    "moodle-atto_easycastms-button": {
+        "requires": [
+            "promise",
+            "moodle-editor_atto-plugin",
+            "event-valuechange"
+        ]
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "name": "moodle-atto_easycastms-button",
+    "builds": {
+        "moodle-atto_easycastms-button": {
+            "jsfiles": [
+                "button.js"
+            ]
+        }
+    }
+}
