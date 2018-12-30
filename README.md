@@ -8,11 +8,22 @@ Description:
 ------------
 This Atto button plugin allows users to add media from an EasyCast MediaServer in their Moodle course from the Atto editor directly.
 
+* Adding a media
+
+![Adding a media](../assets/adding-media.gif)
+
+* Professor view
+
+![Professor view](../assets/professor-view.png)
+
+* Student view
+
+![Student view](../assets/student-view.png)
+
 Dependencies:
 -------------
 
 * https://github.com/UbiCastTeam/moodle-mod_easycastms
-
 
 Installation:
 -------------
