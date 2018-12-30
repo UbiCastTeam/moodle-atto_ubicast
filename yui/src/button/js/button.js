@@ -51,7 +51,7 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
 
         var dialogue = this.getDialogue({
             headerContent: M.util.get_string('pluginname', PLUGINNAME),
-            width: '98%',
+            width: '300px',
             focusAfterHide: true
         });
 
@@ -124,9 +124,12 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
                 if (key === 'update') {
                     courseId = value;
                 }
+                if (key === 'course') {
+                    courseId = value;
+                }
             }
 
-            var videoTemplate = '<iframe id="mediaserver_iframe" style="width: 100%; height: 800px;" src="'
+            var videoTemplate = '<iframe id="mediaserver_iframe" style="width: 100%; height: 800px; background-color: #ddd" src="'
                 + '/mod/easycastms/launch.php?id={{ courseId }}&mediaId={{ mediaId }}'
             + '" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
             + '<script type="text/javascript" src="/mod/easycastms/statics/javascripts/jquery.min.js?_=1"></script>'
