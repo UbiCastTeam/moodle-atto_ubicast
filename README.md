@@ -1,12 +1,13 @@
-Easycast MediaServer Atto button plugin
+UbiCast MediaServer Atto button plugin
 ===========================================
 
-Copyright: UbiCast (http://www.ubicast.eu)
-License: http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+Copyright: UbiCast (https://www.ubicast.eu)
+License: https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+
 
 Description:
 ------------
-This Atto button plugin allows users to add media from an EasyCast MediaServer in their Moodle course from the Atto editor directly.
+This Atto button plugin allows users to add media from an UbiCast MediaServer in their Moodle course from the Atto editor directly.
 
 * Adding a media
 
@@ -20,10 +21,12 @@ This Atto button plugin allows users to add media from an EasyCast MediaServer i
 
 ![Student view](../assets/student-view.png)
 
+
 Dependencies:
 -------------
 
 * https://github.com/UbiCastTeam/moodle-mod_easycastms
+
 
 Installation:
 -------------
@@ -34,6 +37,7 @@ Installation:
 * Navigate to Dashboard (upgrade your Moodle)
 * Navigate to Site administration > Plugins > Text editors > Atto HTML editor > Atto toolbar settings
 * Add the `easycastms = easycastms` in Toolbar config.
+
 
 Development:
 -----------
@@ -47,12 +51,14 @@ Then:
 * If you don't have it already, install `shifter` globally (`npm install -g shifter` or `yarn global add shifter`)
 * Run `shifter --watch`
 
+
 How does it work?
 -----------------
 
 This plugin relies heavily on the https://github.com/UbiCastTeam/moodle-mod_easycastms plugin's LTI video integration mechanism that you can read on in said README.
 
 What the Atto plugin does is only opening a modal asking for the video ID and inserts an iframe the same way the `moodle-mod_easycastms` does.
+
 
 Relevant Moodle Documentation:
 ----------------------

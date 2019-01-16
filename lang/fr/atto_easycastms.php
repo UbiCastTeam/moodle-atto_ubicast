@@ -1,18 +1,19 @@
 <?php
 /**
- * Strings for component 'easycastms', language 'en'
+ * Strings for component 'atto_easycastms', language 'en'
  *
  * @package    atto_easycastms
- * @copyright  2013 UbiCast {@link http://ubicast.eu}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2019 UbiCast {@link https://www.ubicast.eu}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 // moodle required strings
-$string['pluginname'] = 'Boutons EasyCast MS';
+$string['pluginname'] = 'Insérer un média de MediaServer';
 $string['record'] = 'Enregistrer';
 $string['select'] = 'Sélectionner';
 $string['upload'] = 'Uploader';
-$string['inputlabel'] = 'ID du Média';
-$string['inputplaceholder'] = 'Entrez ID du Média';
+$string['inputlabel'] = 'Identifiant du média';
+$string['inputplaceholder'] = 'Entrez l\'identifiant d\'objet du média';
 $string['inputsubmit'] = 'Insérer';
-$string['title'] = 'EasyCast Media Server';
+
+$string['privacy:metadata'] = 'Le plugin atto_easycastms ne stocke aucune information personnelle.';

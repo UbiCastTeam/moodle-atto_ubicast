@@ -3,8 +3,8 @@ YUI.add('moodle-atto_easycastms-button', function (Y, NAME) {
 
 /**
 * @package    atto_easycastms
-* @copyright  2018 UbiCast {@link http://ubicast.eu}
-* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+* @copyright  2019 UbiCast {@link https://www.ubicast.eu}
+* @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 */
 
 /**
@@ -26,7 +26,6 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
         this.addButton({
             icon: 'icon',
             iconComponent: PLUGINNAME,
-            title: 'title',
             callback: this.openChoicesDialogue
         });
     },
