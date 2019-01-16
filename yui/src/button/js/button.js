@@ -128,11 +128,9 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
                 }
             }
 
-            var videoTemplate = '<iframe id="mediaserver_iframe" style="width: 100%; height: 800px; background-color: #ddd" src="'
+            var videoTemplate = '<iframe class="mediaserver-iframe" style="width: 100%; height: 800px; background-color: #ddd;" src="'
                 + '/mod/easycastms/launch.php?id={{ courseId }}&mediaId={{ mediaId }}'
-            + '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen"></iframe>'
-            + '<script type="text/javascript" src="/mod/easycastms/statics/javascripts/jquery.min.js?_=1"></script>'
-            + '<script type="text/javascript" src="/mod/easycastms/statics/javascripts/iframe_manager.js?_=1"></script>';
+            + '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen"></iframe>';
 
             var template = Y.Handlebars.compile(videoTemplate);
             var video = template({
