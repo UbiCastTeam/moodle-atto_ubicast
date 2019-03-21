@@ -17,3 +17,5 @@ $string['inputplaceholder'] = 'Enter your media ID';
 $string['inputsubmit'] = 'Insert';
 
 $string['privacy:metadata'] = 'The atto_link plugin does not store any personal data.';
+
+$string['form_resource_pick'] = 'Select a resource';

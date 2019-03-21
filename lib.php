@@ -23,7 +23,8 @@ function atto_easycastms_strings_for_js() {
             'upload',
             'inputlabel',
             'inputplaceholder',
-            'inputsubmit'
+            'inputsubmit',
+            'form_resource_pick'
         ),
         'atto_easycastms'
     );
