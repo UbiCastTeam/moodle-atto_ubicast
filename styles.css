@@ -2,46 +2,56 @@
     width: 16px;
 }
 
-div[role='dialog'] #mod_ms_browser_preview{
+#id_fieldset_easycastms{
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+#id_fieldset_easycastms > legend{
+    display: none;
+}
+
+#id_fieldset_easycastms #mod_ms_browser_preview{
     text-align: center;
 }
 
-div[role='dialog'] #mod_ms_browser_preview button{
+#id_fieldset_easycastms #mod_ms_browser_preview button{
     display: block;
     margin-top: 10px;
 }
 
-div[role='dialog'] #mod_ms_browser_preview iframe{
+#id_fieldset_easycastms #mod_ms_browser_preview iframe{
     width: 240px;
     margin: 10px 0;
     /*width: 100%;*/
     height: 200px;
 }
 
-div[role='dialog'] #form_frame {
+#id_fieldset_easycastms #form_frame {
     width: 100%;
     height: 300px;
     border: none;
 }
 
-div[role='dialog'] #fitem_id_mediaid {
+#id_fieldset_easycastms #fitem_id_mediaid {
     margin: 0;
 }
 
-div[role='dialog'] #fitem_id_mediaid > div{
+#id_fieldset_easycastms #fitem_id_mediaid > div{
     padding: 0;
 }
 
-div[role='dialog'] #fitem_id_mediaid > div:first-child{
+#id_fieldset_easycastms #fitem_id_mediaid > div:first-child{
     flex: 0 0 40%;
     max-width: 40%;
 }
 
-div[role='dialog'] #fitem_id_mediaid > div:last-child{
+#id_fieldset_easycastms #fitem_id_mediaid > div:last-child{
     flex: 0 0 60%;
     max-width: 60%;
 }
 
-div[role='dialog'] .atto_form{
+#id_fieldset_easycastms .atto_form{
     text-align: right;
 }
