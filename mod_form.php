@@ -17,6 +17,7 @@ class mod_easycastms_mod_form extends moodleform {
     function definition() {
         global $CFG, $DB, $COURSE, $EC_WWW, $LC_WWW, $course_id;
         $mform = $this->_form;
+        $mform->setAttributes(['id'=>'atto_easycastms_form']);
         $mform->addElement('header', 'fieldset_easycastms', '');
         $mform->setExpanded('fieldset_easycastms');
         $mform->addElement('text', 'mediaid', get_string('form_resource', 'easycastms'), array('size'=>'20'));

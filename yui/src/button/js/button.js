@@ -139,7 +139,7 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
             host.setSelection(this._currentSelection);
             var videoTemplate = '<iframe class="mediaserver-iframe" ' +
                 'style="width: 100%; height: 800px; background-color: #ddd;" ' +
-                'src="/lib/editor/atto/plugins/easycastms/view.php?course={{ course_id }}&video={{ media_id }}" ' +
+                'src="/lib/editor/atto/plugins/easycastms/view.php?course={{ course_id }}&video={{ media_id }}/" ' +
                 'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen">' +
                 '</iframe>';
 
