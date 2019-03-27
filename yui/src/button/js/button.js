@@ -17,17 +17,11 @@
 */
 
 var PLUGINNAME = 'atto_easycastms';
-var $ = window.$;
+var BUTTON_SELECTOR = '.atto_easycastms_button';
+var course_id = 0;
 var load_files = true;
-var urlParams = new window.URLSearchParams(window.location.search);
-var course = 0;
-var urlParam = function (name) {
-    if (urlParams.has(name)){
-        return urlParams.get(name);
-    } else {
-        return false;
-    }
-};
+
+var $ = window.$;
 
 Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_atto.EditorPlugin, [], {
     initializer: function() {
@@ -49,6 +43,10 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
             $.getScript("/mod/easycastms/statics/utils.js");
             $.getScript("/mod/easycastms/statics/odm/odm.js");
             $.getScript("/mod/easycastms/statics/media_selector.js");
+            course_id = get_course_id();
+            if (get_course_id() < 2) {
+                $(BUTTON_SELECTOR).hide();
+            }
             load_files = false;
         }
     },
@@ -80,15 +78,14 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
         });
 
         // Set the dialogue content, and then show the dialogue.
-        var url ='/lib/editor/atto/plugins/easycastms/media.php?course=' + urlParam('course') + '&update=' + urlParam('update');
+        var url ='/lib/editor/atto/plugins/easycastms/media.php';
         var content = this._getDialogueContent();
         $.ajax({
                 url: url,
                 type: 'GET',
                 success: function(data){
-                    course = $(data).find("#ms_course").val();
                     window.media_selector = new window.MediaSelector({
-                       moodleURL:  window.M.cfg.wwwroot + '/mod/easycastms/lti.php?id=' + course,
+                       moodleURL:  window.M.cfg.wwwroot + '/mod/easycastms/lti.php?id=' + course_id,
                        mediaserverURL: $(data).find("#ms_mediaserverURL").val(),
                        title: M.util.get_string('form_resource_pick', 'atto_easycastms')
                     });
@@ -145,7 +142,7 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
 
             var template = Y.Handlebars.compile(videoTemplate);
             var data = {
-                course_id: course,
+                course_id: course_id,
                 media_id: media_id
             };
             var video = template(data);
@@ -155,3 +152,13 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
         }
     }
 });
+
+function get_course_id(){
+    for (var i = 0; i < window.document.body.classList.length; i++){
+        if (window.document.body.classList[i].startsWith('course')){
+            var arr = window.document.body.classList[i].split('-');
+            return arr.length == 2 && parseInt(arr[1], 10) || 0;
+        }
+    }
+    return 0;
+}

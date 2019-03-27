@@ -15,7 +15,7 @@ require_once($CFG->libdir . '/formslib.php');
 
 class mod_easycastms_mod_form extends moodleform {
     function definition() {
-        global $CFG, $DB, $COURSE, $EC_WWW, $LC_WWW, $course_id;
+        global $CFG, $DB, $COURSE, $EC_WWW, $LC_WWW;
         $mform = $this->_form;
         $mform->setAttributes(['id'=>'atto_easycastms_form']);
         $mform->addElement('header', 'fieldset_easycastms', '');
@@ -35,9 +35,8 @@ class mod_easycastms_mod_form extends moodleform {
             'felement'), 'fitem', ['id' => 'atto_easycastms_fitem']);
 
         $mform->addElement('html', $fitem);
-        $mform->addElement('hidden', 'ms_course', $course_id);
         $mform->addElement('hidden', 'ms_mediaserverURL', $tool_base_URL);
-        foreach (['ms_course', 'ms_mediaserverURL'] as $name){
+        foreach (['ms_mediaserverURL'] as $name){
             $mform->setType($name, PARAM_TEXT);
             $elem =& $mform->getElement($name);
             $elem->_attributes['id'] = $name;
