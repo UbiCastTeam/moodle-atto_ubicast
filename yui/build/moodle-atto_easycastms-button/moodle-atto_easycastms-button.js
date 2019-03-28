@@ -1,6 +1,5 @@
 YUI.add('moodle-atto_easycastms-button', function (Y, NAME) {
 
-
 /**
 * @package    atto_easycastms
 * @copyright  2019 UbiCast {@link https://www.ubicast.eu}
@@ -20,6 +19,11 @@ YUI.add('moodle-atto_easycastms-button', function (Y, NAME) {
 */
 
 var PLUGINNAME = 'atto_easycastms';
+var BUTTON_SELECTOR = '.atto_easycastms_button';
+var course_id = 0;
+var load_files = true;
+
+var $ = window.$;
 
 Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_atto.EditorPlugin, [], {
     initializer: function() {
@@ -28,6 +32,25 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
             iconComponent: PLUGINNAME,
             callback: this.openChoicesDialogue
         });
+        if (load_files){
+            $('<link>')
+              .appendTo($('head'))
+              .attr({type: 'text/css', rel: 'stylesheet'})
+              .attr('href', '/mod/easycastms/statics/odm/odm.css');
+            $('<link>')
+              .appendTo($('head'))
+              .attr({type: 'text/css', rel: 'stylesheet'})
+              .attr('href', '/mod/easycastms/statics/overlay.css');
+            $.getScript("/mod/easycastms/statics/jquery.min.js");
+            $.getScript("/mod/easycastms/statics/utils.js");
+            $.getScript("/mod/easycastms/statics/odm/odm.js");
+            $.getScript("/mod/easycastms/statics/media_selector.js");
+            course_id = get_course_id();
+            if (get_course_id() < 2) {
+                $(BUTTON_SELECTOR).hide();
+            }
+            load_files = false;
+        }
     },
 
     // A reference to the cursor position when button is pressed
@@ -52,13 +75,27 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
 
         var dialogue = this.getDialogue({
             headerContent: M.util.get_string('pluginname', PLUGINNAME),
-            width: '300px',
+            width: '350px',
             focusAfterHide: true
         });
 
         // Set the dialogue content, and then show the dialogue.
-        dialogue.set('bodyContent', this._getDialogueContent())
-        .show();
+        var url ='/lib/editor/atto/plugins/easycastms/media.php';
+        var content = this._getDialogueContent();
+        $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(data){
+                    window.media_selector = new window.MediaSelector({
+                       moodleURL:  window.M.cfg.wwwroot + '/mod/easycastms/lti.php?id=' + course_id,
+                       mediaserverURL: $(data).find("#ms_mediaserverURL").val(),
+                       title: M.util.get_string('form_resource_pick', 'atto_easycastms')
+                    });
+                    var ajax_content = Y.Node.create(data);
+                    ajax_content.append(content);
+                    dialogue.set('bodyContent', ajax_content).show();
+                }
+        });
     },
 
     /**
@@ -70,22 +107,13 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
     */
     _getDialogueContent: function() {
         var content = Y.Node.create('<div style="word-wrap: break-word;"></div>');
-        var label =  M.util.get_string('inputlabel', PLUGINNAME);
-        var placeholder =  M.util.get_string('inputplaceholder', PLUGINNAME);
         var submit =  M.util.get_string('inputsubmit', PLUGINNAME);
-
         this._form = Y.Node.create(
-            '<form class="atto_form">'
-            +'<label for="mediaId">' + label + '</label>'
-            + '<input type="text" name="mediaId" id="mediaId" placeholder="' + placeholder + '"/>'
-            + '<input type="submit" class="submit" value="'+ submit + '" />'
-            + '</form>'
-        );
-
+            '<form class="atto_form">' +
+            '<button type="submit" class="submit">' + submit + '</button>' +
+            '</form>');
         this._form.one('.submit').on('click', this._setVideo, this);
-
         content.append(this._form);
-
         return content;
     },
 
@@ -103,49 +131,43 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
             focusAfterHide: null
         }).hide();
 
-        var input = this._form.one('#mediaId');
-        var mediaId = input.get('value');
-        if (mediaId !== '') {
-
-            // We add a prefix if it is not already prefixed.
-            mediaId = mediaId.trim();
-
+        var media_id = $('#id_mediaid').val();
+        var media_w = $('#media_width').val();
+        var media_h = $('#media_height').val();
+        if (media_id){
             var host = this.get('host');
             this.editor.focus();
             host.setSelection(this._currentSelection);
-
-            var parameters = window.location.search.split('?')[1].split('&');
-            var courseId = -1;
-
-            for (var i = 0; i < parameters.length; i++) {
-                var param = parameters[i];
-                var key = param.split('=')[0];
-                var value = param.split('=')[1];
-
-                if (key === 'update') {
-                    courseId = value;
-                }
-                if (key === 'course') {
-                    courseId = value;
-                }
-            }
-
-            var videoTemplate = '<iframe class="mediaserver-iframe" style="width: 100%; height: 800px; background-color: #ddd;" src="'
-                + '/mod/easycastms/launch.php?id={{ courseId }}&mediaId={{ mediaId }}'
-            + '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen"></iframe>';
+            var videoTemplate = '<iframe class="mediaserver-iframe" ' +
+                'style="width: {{ media_w }}; height: {{ media_h }}; background-color: #ddd;" ' +
+                'src="/lib/editor/atto/plugins/easycastms/view.php?course={{ course_id }}&video={{ media_id }}/" ' +
+                'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen">' +
+                '</iframe>';
 
             var template = Y.Handlebars.compile(videoTemplate);
-            var video = template({
-                courseId: courseId,
-                mediaId: mediaId,
-            });
-
+            var data = {
+                course_id: course_id,
+                media_id: media_id,
+                media_w: media_w,
+                media_h: media_h
+            };
+            var video = template(data);
             host.insertContentAtFocusPoint(video);
 
             this.markUpdated();
         }
     }
 });
+
+function get_course_id(){
+    for (var i = 0; i < window.document.body.classList.length; i++){
+        if (window.document.body.classList[i].startsWith('course')){
+            var arr = window.document.body.classList[i].split('-');
+            return arr.length == 2 && parseInt(arr[1], 10) || 0;
+        }
+    }
+    return 0;
+}
 
 
 }, '@VERSION@', {"requires": ["promise", "moodle-editor_atto-plugin", "event-valuechange"]});
