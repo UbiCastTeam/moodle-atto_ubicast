@@ -89,7 +89,7 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
                     window.media_selector = new window.MediaSelector({
                        moodleURL:  window.M.cfg.wwwroot + '/mod/easycastms/lti.php?id=' + course_id,
                        mediaserverURL: $(data).find("#ms_mediaserverURL").val(),
-                       title: M.util.get_string('form_resource_pick', 'atto_easycastms')
+                       title: M.util.get_string('form_resource_pick', 'easycastms')
                     });
                     var ajax_content = Y.Node.create(data);
                     ajax_content.append(content);

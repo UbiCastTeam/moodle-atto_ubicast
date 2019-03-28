@@ -9,15 +9,8 @@
 
 // moodle required strings
 $string['pluginname'] = 'Insert a media from MediaServer';
-$string['record'] = 'Record';
-$string['select'] = 'Select';
-$string['upload'] = 'Upload';
-$string['inputlabel'] = 'Media ID';
-$string['inputplaceholder'] = 'Enter your media ID';
+$string['width'] = 'Width';
+$string['height'] = 'Height';
 $string['inputsubmit'] = 'Insert';
 
 $string['privacy:metadata'] = 'The atto_link plugin does not store any personal data.';
-
-$string['form_resource_pick'] = 'Select a resource';
-$string['width'] = 'Width';
-$string['height'] = 'Height';

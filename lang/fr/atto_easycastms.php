@@ -9,11 +9,8 @@
 
 // moodle required strings
 $string['pluginname'] = 'Insérer un média de MediaServer';
-$string['record'] = 'Enregistrer';
-$string['select'] = 'Sélectionner';
-$string['upload'] = 'Uploader';
-$string['inputlabel'] = 'Identifiant du média';
-$string['inputplaceholder'] = 'Entrez l\'identifiant d\'objet du média';
+$string['width'] = 'Largeur';
+$string['height'] = 'Hauteur';
 $string['inputsubmit'] = 'Insérer';
 
 $string['privacy:metadata'] = 'Le plugin atto_easycastms ne stocke aucune information personnelle.';

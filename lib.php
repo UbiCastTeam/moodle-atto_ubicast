@@ -18,13 +18,9 @@ function atto_easycastms_strings_for_js() {
 
     $PAGE->requires->strings_for_js(
         array(
-            'select',
-            'record',
-            'upload',
-            'inputlabel',
-            'inputplaceholder',
-            'inputsubmit',
-            'form_resource_pick'
+            'width',
+            'height',
+            'inputsubmit'
         ),
         'atto_easycastms'
     );
