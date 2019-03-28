@@ -12,7 +12,7 @@
 
 defined('MOODLE_INTERNAL') || die('Direct access to this script is forbidden.');
 
-$plugin->version = 2019032801;
+$plugin->version = 2019032802;
 $plugin->requires = 2015111610; // 3.0
 $plugin->component = 'atto_easycastms';
 $plugin->release = '1.0';
@@ -20,5 +20,5 @@ $plugin->maturity = MATURITY_STABLE;
 $plugin->cron = 0;
 
 $plugin->dependencies = [
-    'mod_easycastms' => 2019011600,
+    'mod_easycastms' => 2019032800,
 ];
