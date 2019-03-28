@@ -108,7 +108,7 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
         var submit =  M.util.get_string('inputsubmit', PLUGINNAME);
         this._form = Y.Node.create(
             '<form class="atto_form">' +
-            '<input type="submit" class="submit" value="'+ submit + '" />' +
+            '<button type="submit" class="submit">' + submit + '</button>' +
             '</form>');
         this._form.one('.submit').on('click', this._setVideo, this);
         content.append(this._form);
@@ -130,12 +130,14 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
         }).hide();
 
         var media_id = $('#id_mediaid').val();
+        var media_w = $('#media_width').val();
+        var media_h = $('#media_height').val();
         if (media_id){
             var host = this.get('host');
             this.editor.focus();
             host.setSelection(this._currentSelection);
             var videoTemplate = '<iframe class="mediaserver-iframe" ' +
-                'style="width: 100%; height: 800px; background-color: #ddd;" ' +
+                'style="width: {{ media_w }}; height: {{ media_h }}; background-color: #ddd;" ' +
                 'src="/lib/editor/atto/plugins/easycastms/view.php?course={{ course_id }}&video={{ media_id }}/" ' +
                 'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen">' +
                 '</iframe>';
@@ -143,7 +145,9 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
             var template = Y.Handlebars.compile(videoTemplate);
             var data = {
                 course_id: course_id,
-                media_id: media_id
+                media_id: media_id,
+                media_w: media_w,
+                media_h: media_h
             };
             var video = template(data);
             host.insertContentAtFocusPoint(video);

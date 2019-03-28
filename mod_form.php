@@ -20,9 +20,13 @@ class mod_easycastms_mod_form extends moodleform {
         $mform->setAttributes(['id'=>'atto_easycastms_form']);
         $mform->addElement('header', 'fieldset_easycastms', '');
         $mform->setExpanded('fieldset_easycastms');
-        $mform->addElement('text', 'mediaid', get_string('form_resource', 'easycastms'), array('size'=>'20'));
+
+        $mform->addElement('text', 'mediaid', get_string('form_resource', 'easycastms'), ['size' => '20']);
         $mform->addHelpButton('mediaid', 'form_resource', 'easycastms');
         $mform->setType('mediaid', PARAM_TEXT);
+
+        $mform->addElement('text', 'media_width', get_string('width', 'atto_easycastms'), ['size' => '20', 'value' => '100%']);
+        $mform->addElement('text', 'media_height', get_string('height', 'atto_easycastms'), ['size' => '20', 'value' => '600px']);
 
         $config = get_config('easycastms');
         $tool_base_URL = $config->easycastms_url;
@@ -36,7 +40,7 @@ class mod_easycastms_mod_form extends moodleform {
 
         $mform->addElement('html', $fitem);
         $mform->addElement('hidden', 'ms_mediaserverURL', $tool_base_URL);
-        foreach (['ms_mediaserverURL'] as $name){
+        foreach (['ms_mediaserverURL', 'media_width', 'media_height'] as $name){
             $mform->setType($name, PARAM_TEXT);
             $elem =& $mform->getElement($name);
             $elem->_attributes['id'] = $name;
