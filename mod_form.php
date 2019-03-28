@@ -26,7 +26,7 @@ class mod_easycastms_mod_form extends moodleform {
         $mform->setType('mediaid', PARAM_TEXT);
 
         $mform->addElement('text', 'media_width', get_string('width', 'atto_easycastms'), ['size' => '20', 'value' => '100%']);
-        $mform->addElement('text', 'media_height', get_string('height', 'atto_easycastms'), ['size' => '20', 'value' => '600px']);
+        $mform->addElement('text', 'media_height', get_string('height', 'atto_easycastms'), ['size' => '20', 'value' => '300px']);
 
         $config = get_config('easycastms');
         $tool_base_URL = $config->easycastms_url;

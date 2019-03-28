@@ -35,18 +35,18 @@
     border: none;
 }
 
-#id_fieldset_easycastms #fitem_id_mediaid > div{
+#id_fieldset_easycastms div.fitem.fitem_ftext > div{
     padding: 0;
 }
 
-#id_fieldset_easycastms #fitem_id_mediaid > div:first-child{
+#id_fieldset_easycastms div.fitem.fitem_ftext > div:first-child{
     text-align: left;
     flex: 0 0 40%;
     max-width: 40%;
     padding-left: 12px;
 }
 
-#id_fieldset_easycastms #fitem_id_mediaid > div:last-child{
+#id_fieldset_easycastms div.fitem.fitem_ftext > div:last-child{
     margin-left: auto;
     flex: 0 0 60%;
     max-width: 60%;
@@ -59,6 +59,7 @@
 #id_fieldset_easycastms div.fitem.fitem_ftext{
     display: flex;
     margin: 0;
+    margin-bottom: 5px;
     align-items: center;
 }
 
