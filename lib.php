@@ -24,4 +24,11 @@ function atto_easycastms_strings_for_js() {
         ),
         'atto_easycastms'
     );
+
+    $PAGE->requires->strings_for_js(
+        array(
+            'form_resource_pick'
+        ),
+        'mod_easycastms'
+    );
 }
