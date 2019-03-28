@@ -4,3 +4,13 @@
     height: 200px;
     display: block;
 }
+
+.mform #id_fieldset_easycastms .fitem,
+.mform #id_fieldset_easycastms .fitem div.fitemtitle,
+.mform #id_fieldset_easycastms .fitem .felement {
+    margin: 0;
+    padding: 0;
+    display: block;
+    float: none;
+    text-align: inherit;
+}
