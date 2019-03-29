@@ -35,8 +35,8 @@ Dependencies:
 Installation:
 -------------
 
-* Extract content of zip archive
-* Upload extracted folder to `lib/editor/atto/plugins`
+* In the Moodle server, go to the Moodle atto plugins directory: `cd lib/editor/atto/plugins`
+* Clone the repository: `git clone https://github.com/UbiCastTeam/moodle-atto_ubicast.git ubicast`
 * Visit Moodle as administrator
 * Navigate to Dashboard (upgrade your Moodle)
 * Navigate to Site administration > Plugins > Text editors > Atto HTML editor > Atto toolbar settings
