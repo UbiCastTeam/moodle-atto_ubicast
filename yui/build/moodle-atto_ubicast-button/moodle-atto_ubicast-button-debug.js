@@ -1,31 +1,31 @@
-YUI.add('moodle-atto_easycastms-button', function (Y, NAME) {
+YUI.add('moodle-atto_ubicast-button', function (Y, NAME) {
 
 /**
-* @package    atto_easycastms
+* @package    atto_ubicast
 * @copyright  2019 UbiCast {@link https://www.ubicast.eu}
 * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 */
 
 /**
-* @module moodle-atto_easycastms-button
+* @module moodle-atto_ubicast-button
 */
 
 /**
-* Atto text editor easycastms plugin.
+* Atto text editor ubicast plugin.
 *
-* @namespace M.atto_easycastms
+* @namespace M.atto_ubicast
 * @class button
 * @extends M.editor_atto.EditorPlugin
 */
 
-var PLUGINNAME = 'atto_easycastms';
-var BUTTON_SELECTOR = '.atto_easycastms_button';
+var PLUGINNAME = 'atto_ubicast';
+var BUTTON_SELECTOR = '.atto_ubicast_button';
 var course_id = 0;
 var load_files = true;
 
 var $ = window.$;
 
-Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_atto.EditorPlugin, [], {
+Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.EditorPlugin, [], {
     initializer: function() {
         this.addButton({
             icon: 'icon',
@@ -36,15 +36,15 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
             $('<link>')
               .appendTo($('head'))
               .attr({type: 'text/css', rel: 'stylesheet'})
-              .attr('href', '/mod/easycastms/statics/odm/odm.css');
+              .attr('href', '/mod/ubicast/statics/odm/odm.css');
             $('<link>')
               .appendTo($('head'))
               .attr({type: 'text/css', rel: 'stylesheet'})
-              .attr('href', '/mod/easycastms/statics/overlay.css');
-            $.getScript("/mod/easycastms/statics/jquery.min.js");
-            $.getScript("/mod/easycastms/statics/utils.js");
-            $.getScript("/mod/easycastms/statics/odm/odm.js");
-            $.getScript("/mod/easycastms/statics/media_selector.js");
+              .attr('href', '/mod/ubicast/statics/overlay.css');
+            $.getScript("/mod/ubicast/statics/jquery.min.js");
+            $.getScript("/mod/ubicast/statics/utils.js");
+            $.getScript("/mod/ubicast/statics/odm/odm.js");
+            $.getScript("/mod/ubicast/statics/media_selector.js");
             course_id = get_course_id();
             if (get_course_id() < 2) {
                 $(BUTTON_SELECTOR).hide();
@@ -80,16 +80,16 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
         });
 
         // Set the dialogue content, and then show the dialogue.
-        var url ='/lib/editor/atto/plugins/easycastms/media.php';
+        var url ='/lib/editor/atto/plugins/ubicast/media.php';
         var content = this._getDialogueContent();
         $.ajax({
                 url: url,
                 type: 'GET',
                 success: function(data){
                     window.media_selector = new window.MediaSelector({
-                       moodleURL:  window.M.cfg.wwwroot + '/mod/easycastms/lti.php?id=' + course_id,
+                       moodleURL:  window.M.cfg.wwwroot + '/mod/ubicast/lti.php?id=' + course_id,
                        mediaserverURL: $(data).find("#ms_mediaserverURL").val(),
-                       title: M.util.get_string('form_resource_pick', 'mod_easycastms')
+                       title: M.util.get_string('form_resource_pick', 'mod_ubicast')
                     });
                     var ajax_content = Y.Node.create(data);
                     ajax_content.append(content);
@@ -140,7 +140,7 @@ Y.namespace('M.atto_easycastms').Button = Y.Base.create('button', Y.M.editor_att
             host.setSelection(this._currentSelection);
             var videoTemplate = '<iframe class="mediaserver-iframe" ' +
                 'style="width: {{ media_w }}; height: {{ media_h }}; background-color: #ddd;" ' +
-                'src="/lib/editor/atto/plugins/easycastms/view.php?course={{ course_id }}&video={{ media_id }}/" ' +
+                'src="/lib/editor/atto/plugins/ubicast/view.php?course={{ course_id }}&video={{ media_id }}/" ' +
                 'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen">' +
                 '</iframe>';
 

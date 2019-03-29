@@ -1,7 +1,7 @@
 {
-    "name": "moodle-atto_easycastms-button",
+    "name": "moodle-atto_ubicast-button",
     "builds": {
-        "moodle-atto_easycastms-button": {
+        "moodle-atto_ubicast-button": {
             "jsfiles": [
                 "button.js"
             ]

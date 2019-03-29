@@ -1,13 +1,13 @@
-#id_fieldset_easycastms #mod_ms_browser_preview iframe {
+#id_fieldset_ubicast #mod_ms_browser_preview iframe {
     margin: 0 auto;
     width: 260px;
     height: 200px;
     display: block;
 }
 
-.mform #id_fieldset_easycastms .fitem,
-.mform #id_fieldset_easycastms .fitem div.fitemtitle,
-.mform #id_fieldset_easycastms .fitem .felement {
+.mform #id_fieldset_ubicast .fitem,
+.mform #id_fieldset_ubicast .fitem div.fitemtitle,
+.mform #id_fieldset_ubicast .fitem .felement {
     margin: 0;
     padding: 0;
     display: block;

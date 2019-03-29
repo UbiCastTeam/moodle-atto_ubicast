@@ -29,7 +29,7 @@ This Atto button plugin allows users to add media from an UbiCast MediaServer in
 Dependencies:
 -------------
 
-* https://github.com/UbiCastTeam/moodle-mod_easycastms
+* https://github.com/UbiCastTeam/moodle-mod_ubicast
 
 
 Installation:
@@ -40,13 +40,13 @@ Installation:
 * Visit Moodle as administrator
 * Navigate to Dashboard (upgrade your Moodle)
 * Navigate to Site administration > Plugins > Text editors > Atto HTML editor > Atto toolbar settings
-* Add the `easycastms = easycastms` in Toolbar config.
+* Add the `ubicast = ubicast` in Toolbar config.
 
 
 Development:
 -----------
 
-If you don't have anything set up, follow the `Development Environment` setup instructions in https://github.com/UbiCastTeam/moodle-mod_easycastms
+If you don't have anything set up, follow the `Development Environment` setup instructions in https://github.com/UbiCastTeam/moodle-mod_ubicast
 
 Then:
 
@@ -59,9 +59,9 @@ Then:
 How does it work?
 -----------------
 
-This plugin relies heavily on the https://github.com/UbiCastTeam/moodle-mod_easycastms plugin's LTI video integration mechanism that you can read on in said README.
+This plugin relies heavily on the https://github.com/UbiCastTeam/moodle-mod_ubicast plugin's LTI video integration mechanism that you can read on in said README.
 
-What the Atto plugin does is only opening a modal asking for the video ID and inserts an iframe the same way the `moodle-mod_easycastms` does.
+What the Atto plugin does is only opening a modal asking for the video ID and inserts an iframe the same way the `moodle-mod_ubicast` does.
 
 
 Relevant Moodle Documentation:

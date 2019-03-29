@@ -1,5 +1,5 @@
 {
-    "moodle-atto_easycastms-button": {
+    "moodle-atto_ubicast-button": {
         "requires": [
             "promise",
             "moodle-editor_atto-plugin",
