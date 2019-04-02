@@ -17,26 +17,20 @@ class mod_ubicast_mod_form extends moodleform {
     function definition() {
         global $CFG, $DB, $COURSE, $EC_WWW, $LC_WWW;
         $mform = $this->_form;
-        $mform->setAttributes(['id'=>'atto_ubicast_form']);
-        $mform->setAttributes(['class'=>'mform']);
-        $mform->addElement('header', 'fieldset_ubicast', '');
-        $mform->setExpanded('fieldset_ubicast');
-
-        $mform->addElement('text', 'mediaid', get_string('form_resource', 'ubicast'), ['size' => '20']);
-        $mform->addHelpButton('mediaid', 'form_resource', 'ubicast');
-        $mform->setType('mediaid', PARAM_TEXT);
+        $mform->setAttributes(['class'=>'mform atto-ubicast-form']);
 
         $config = get_config('ubicast');
         $tool_base_URL = $config->ubicast_url;
+        $mform->addElement('html', '
+            <div class="fitem">
+                <div class="felement" style="margin: 0;">
+                    <iframe class="atto-ubicast" style="margin: 0; width: 100%; height: 400px;" src="" frameborder="0"></iframe>
+                </div>
+            </div>');
 
-        $button = html_writer::tag('button', get_string('form_resource_pick', 'ubicast'),
-            ['type' => 'button', 'onclick' => 'javascript: media_selector.open();']);
-        $ifr =  html_writer::tag('iframe', null, ['src' => "$EC_WWW/statics/media.png", 'frameborder' => '0']);
-        $fitem = html_writer::div(html_writer::div(
-            html_writer::div($button.$ifr,null, ['id' => 'mod_ms_browser_preview']),
-            'felement'), 'fitem', ['id' => 'atto_ubicast_fitem']);
-
-        $mform->addElement('html', $fitem);
+        $mform->addElement('text', 'mediaid', get_string('form_resource', 'ubicast'), ['size' => '20', 'class' => 'atto-ubicast']);
+        $mform->addHelpButton('mediaid', 'form_resource', 'ubicast');
+        $mform->setType('mediaid', PARAM_TEXT);
 
         $mform->addElement('text', 'media_width', get_string('width', 'atto_ubicast'), ['size' => '20', 'value' => '100%']);
         $mform->addElement('text', 'media_height', get_string('height', 'atto_ubicast'), ['size' => '20', 'value' => '300px']);

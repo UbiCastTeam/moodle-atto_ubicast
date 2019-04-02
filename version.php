@@ -12,7 +12,7 @@
 
 defined('MOODLE_INTERNAL') || die('Direct access to this script is forbidden.');
 
-$plugin->version = 2019032902;
+$plugin->version = 2019040200;
 $plugin->requires = 2015111610; // 3.0
 $plugin->component = 'atto_ubicast';
 $plugin->release = '1.0';
@@ -20,5 +20,5 @@ $plugin->maturity = MATURITY_STABLE;
 $plugin->cron = 0;
 
 $plugin->dependencies = [
-    'mod_ubicast' => 2019032900,
+    'mod_ubicast' => 2019040200,
 ];

@@ -24,11 +24,4 @@ function atto_ubicast_strings_for_js() {
         ),
         'atto_ubicast'
     );
-
-    $PAGE->requires->strings_for_js(
-        array(
-            'form_resource_pick'
-        ),
-        'mod_ubicast'
-    );
 }

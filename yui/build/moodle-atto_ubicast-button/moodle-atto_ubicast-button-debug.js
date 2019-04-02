@@ -17,13 +17,24 @@ YUI.add('moodle-atto_ubicast-button', function (Y, NAME) {
 * @class button
 * @extends M.editor_atto.EditorPlugin
 */
+/* global $ */
+/* global M */
+"use strict";
 
 var PLUGINNAME = 'atto_ubicast';
 var BUTTON_SELECTOR = '.atto_ubicast_button';
 var course_id = 0;
 var load_files = true;
 
-var $ = window.$;
+function get_course_id(){
+    for (var i = 0; i < window.document.body.classList.length; i++){
+        if (window.document.body.classList[i].startsWith('course')){
+            var arr = window.document.body.classList[i].split('-');
+            return arr.length === 2 && parseInt(arr[1], 10) || 0;
+        }
+    }
+    return 0;
+}
 
 Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.EditorPlugin, [], {
     initializer: function() {
@@ -33,18 +44,8 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
             callback: this.openChoicesDialogue
         });
         if (load_files){
-            $('<link>')
-              .appendTo($('head'))
-              .attr({type: 'text/css', rel: 'stylesheet'})
-              .attr('href', '/mod/ubicast/statics/odm/odm.css');
-            $('<link>')
-              .appendTo($('head'))
-              .attr({type: 'text/css', rel: 'stylesheet'})
-              .attr('href', '/mod/ubicast/statics/overlay.css');
-            $.getScript("/mod/ubicast/statics/jquery.min.js");
-            $.getScript("/mod/ubicast/statics/utils.js");
-            $.getScript("/mod/ubicast/statics/odm/odm.js");
-            $.getScript("/mod/ubicast/statics/media_selector.js");
+            $.getScript("/mod/ubicast/statics/jquery.min.js?_=9");
+            $.getScript("/mod/ubicast/statics/media_selector.js?_=9");
             course_id = get_course_id();
             if (get_course_id() < 2) {
                 $(BUTTON_SELECTOR).hide();
@@ -56,7 +57,7 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
     // A reference to the cursor position when button is pressed
     _currentSelection: null,
 
-    _form: null,
+    _dialogContent: null,
 
     /**
     * Open a modal to offer different choices.
@@ -75,65 +76,51 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
 
         var dialogue = this.getDialogue({
             headerContent: M.util.get_string('pluginname', PLUGINNAME),
-            width: '350px',
+            width: '425px',
             focusAfterHide: true
         });
 
         // Set the dialogue content, and then show the dialogue.
         var url ='/lib/editor/atto/plugins/ubicast/media.php';
-        var content = this._getDialogueContent();
+        var self = this;
         $.ajax({
-                url: url,
-                type: 'GET',
-                success: function(data){
-                    window.media_selector = new window.MediaSelector({
-                       moodleURL:  window.M.cfg.wwwroot + '/mod/ubicast/lti.php?id=' + course_id,
-                       mediaserverURL: $(data).find("#ms_mediaserverURL").val(),
-                       title: M.util.get_string('form_resource_pick', 'mod_ubicast')
-                    });
-                    var ajax_content = Y.Node.create(data);
-                    ajax_content.append(content);
-                    dialogue.set('bodyContent', ajax_content).show();
-                }
+            url: url,
+            type: 'GET',
+            success: function(data){
+                var content = Y.Node.create(data);
+                var bottom = Y.Node.create('<div style="text-align: center;"></div>');
+                var submit =  M.util.get_string('inputsubmit', PLUGINNAME);
+                bottom.append(Y.Node.create('<button type="submit" class="submit">' + submit + '</button>'));
+                content.append(bottom);
+                content.on('submit', self._setVideo, self);
+                self._dialogContent = content;
+                dialogue.set('bodyContent', content).show();
+                window.media_selector = new window.MediaSelector({
+                   moodleURL:  window.M.cfg.wwwroot + '/mod/ubicast/lti.php?id=' + course_id,
+                   mediaserverURL: $(data).find("#ms_mediaserverURL").val(),
+                   target: "atto-ubicast"
+                });
+            }
         });
-    },
-
-    /**
-    * Return the dialogue content for the tool.
-    *
-    * @method _getDialogueContent
-    * @private
-    * @return {Node} The content to place in the dialogue.
-    */
-    _getDialogueContent: function() {
-        var content = Y.Node.create('<div style="word-wrap: break-word;"></div>');
-        var submit =  M.util.get_string('inputsubmit', PLUGINNAME);
-        this._form = Y.Node.create(
-            '<form class="atto_form">' +
-            '<button type="submit" class="submit">' + submit + '</button>' +
-            '</form>');
-        this._form.one('.submit').on('click', this._setVideo, this);
-        content.append(this._form);
-        return content;
     },
 
     /**
     * The video was inserted, so make changes to the editor source.
     *
     * @method _setVideo
-    * @param {EventFacade} e
+    * @param {EventFacade} event
     * @private
     */
-    _setVideo: function(e) {
-        e.preventDefault();
+    _setVideo: function(event) {
+        event.preventDefault();
 
         this.getDialogue({
             focusAfterHide: null
         }).hide();
 
-        var media_id = $('#id_mediaid').val();
-        var media_w = $('#media_width').val();
-        var media_h = $('#media_height').val();
+        var media_id = this._dialogContent.one('#id_mediaid').get('value');
+        var media_w = this._dialogContent.one('#media_width').get('value');
+        var media_h = this._dialogContent.one('#media_height').get('value');
         if (media_id){
             var host = this.get('host');
             this.editor.focus();
@@ -156,18 +143,9 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
 
             this.markUpdated();
         }
+        return false;
     }
 });
-
-function get_course_id(){
-    for (var i = 0; i < window.document.body.classList.length; i++){
-        if (window.document.body.classList[i].startsWith('course')){
-            var arr = window.document.body.classList[i].split('-');
-            return arr.length == 2 && parseInt(arr[1], 10) || 0;
-        }
-    }
-    return 0;
-}
 
 
 }, '@VERSION@', {"requires": ["promise", "moodle-editor_atto-plugin", "event-valuechange"]});

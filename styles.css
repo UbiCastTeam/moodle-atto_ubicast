@@ -1,16 +1,11 @@
-#id_fieldset_ubicast #mod_ms_browser_preview iframe {
-    margin: 0 auto;
-    width: 260px;
-    height: 200px;
+.mform.atto-ubicast-form fieldset.hidden {
     display: block;
 }
 
-.mform #id_fieldset_ubicast .fitem,
-.mform #id_fieldset_ubicast .fitem div.fitemtitle,
-.mform #id_fieldset_ubicast .fitem .felement {
-    margin: 0;
-    padding: 0;
-    display: block;
-    float: none;
-    text-align: inherit;
+.mform.atto-ubicast-form .fitem div.fitemtitle {
+    width: 40%;
+}
+
+.mform.atto-ubicast-form .fitem .felement {
+    margin-left: 45%;
 }
