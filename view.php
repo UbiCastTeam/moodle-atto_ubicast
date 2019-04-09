@@ -22,10 +22,7 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-global $CFG;
-if (!isset($CFG)) {
-    require('../../../../../config.php');
-}
+require_once('../../../../../config.php');
 require_once("$CFG->dirroot/mod/ubicast/locallib.php");
 $courseid = required_param('course', PARAM_TEXT);
 $videoid = required_param('video', PARAM_TEXT);

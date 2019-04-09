@@ -22,10 +22,7 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-global $CFG;
-if (!isset($CFG)) {
-    require('../../../../../config.php');
-}
+require_once('../../../../../config.php');
 require_once("$CFG->dirroot/lib/editor/atto/plugins/ubicast/mod_form.php");
 
 $context = context_system::instance();

@@ -22,7 +22,7 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-// moodle required strings
+// Moodle required strings.
 $string['pluginname'] = 'Insérer un média de MediaServer';
 $string['width'] = 'Largeur';
 $string['height'] = 'Hauteur';
