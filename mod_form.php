@@ -1,26 +1,37 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
- * URL configuration form
+ * ubicast atto plugin form
  *
- * @package    mod
- * @subpackage ubicast
- * @copyright  2013 UbiCast {@link https://www.ubicast.eu}
+ * @package    atto_ubicast
+ * @copyright  2019 UbiCast {@link https://www.ubicast.eu}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-if (!defined('MOODLE_INTERNAL')) { die('Direct access to this script is forbidden.'); }
+defined('MOODLE_INTERNAL') || die();
 
-require_once('c.php');
-require_once($CFG->libdir . '/formslib.php');
+require_once($CFG->libdir.'/formslib.php');
 
 class mod_ubicast_mod_form extends moodleform {
-    function definition() {
-        global $CFG, $DB, $COURSE, $EC_WWW, $LC_WWW;
+    public function definition() {
+        global $CFG, $DB, $COURSE;
         $mform = $this->_form;
-        $mform->setAttributes(['class'=>'mform atto-ubicast-form']);
+        $mform->setAttributes(['class' => 'mform atto-ubicast-form']);
 
-        $config = get_config('ubicast');
-        $tool_base_URL = $config->ubicast_url;
         $mform->addElement('html', '
             <div class="fitem">
                 <div class="felement" style="margin: 0;">
@@ -35,8 +46,9 @@ class mod_ubicast_mod_form extends moodleform {
         $mform->addElement('text', 'media_width', get_string('width', 'atto_ubicast'), ['size' => '20', 'value' => '100%']);
         $mform->addElement('text', 'media_height', get_string('height', 'atto_ubicast'), ['size' => '20', 'value' => '300px']);
 
-        $mform->addElement('hidden', 'ms_mediaserverURL', $tool_base_URL);
-        foreach (['ms_mediaserverURL', 'media_width', 'media_height'] as $name){
+        $config = get_config('ubicast');
+        $mform->addElement('hidden', 'ms_mediaserverURL', $config->ubicast_url);
+        foreach (['ms_mediaserverURL', 'media_width', 'media_height'] as $name) {
             $mform->setType($name, PARAM_TEXT);
             $elem =& $mform->getElement($name);
             $elem->_attributes['id'] = $name;
