@@ -44,8 +44,8 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
             callback: this.openChoicesDialogue
         });
         if (loadFiles) {
-            $.getScript("/mod/ubicast/statics/jquery.min.js?_=9");
-            $.getScript("/mod/ubicast/statics/mediaSelector.js?_=9");
+            $.getScript("/mod/ubicast/statics/jquery.min.js?_=11");
+            $.getScript("/mod/ubicast/statics/media_selector.js?_=11");
             courseId = getCourseId();
             if (getCourseId() < 2) {
                 $(BUTTON_SELECTOR).hide();
@@ -98,7 +98,7 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
                 window.mediaSelector = new window.MediaSelector({
                    moodleURL: window.M.cfg.wwwroot + '/mod/ubicast/lti.php?id=' + courseId,
                    mediaserverURL: $(data).find('#ms_mediaserverURL').val(),
-                   target: 'atto-ubicast'
+                   target: 'id_resource_atto_ubicast'
                 });
             }
         });

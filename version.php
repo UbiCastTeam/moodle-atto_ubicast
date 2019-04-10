@@ -24,13 +24,13 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2019040901;
+$plugin->version = 2019041001;
 $plugin->requires = 2015111610;  // 3.0.
 $plugin->component = 'atto_ubicast';
-$plugin->release = '1.0 (Build: 2019040901)';
+$plugin->release = '1.0 (Build: 2019041001)';
 $plugin->maturity = MATURITY_STABLE;
 $plugin->cron = 0;
 
 $plugin->dependencies = [
-    'mod_ubicast' => 2019040900,
+    'mod_ubicast' => 2019041000,
 ];

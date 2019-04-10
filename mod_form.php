@@ -30,16 +30,16 @@ class mod_ubicast_mod_form extends moodleform {
     public function definition() {
         global $CFG, $DB, $COURSE;
         $mform = $this->_form;
-        $mform->setAttributes(['class' => 'mform atto-ubicast-form']);
 
+        $mform->addElement('header', 'resource_atto_ubicast', get_string('form_resource_header', 'ubicast'));
         $mform->addElement('html', '
             <div class="fitem">
                 <div class="felement" style="margin: 0;">
-                    <iframe class="atto-ubicast" style="margin: 0; width: 100%; height: 400px;" src="" frameborder="0"></iframe>
+                    <iframe class="ubicast-iframe" style="margin: 0; width: 100%; height: 400px;" src="" frameborder="0"></iframe>
                 </div>
             </div>');
 
-        $mform->addElement('text', 'mediaid', get_string('form_resource', 'ubicast'), ['size' => '20', 'class' => 'atto-ubicast']);
+        $mform->addElement('text', 'mediaid', get_string('form_resource', 'ubicast'), ['size' => '20']);
         $mform->addHelpButton('mediaid', 'form_resource', 'ubicast');
         $mform->setType('mediaid', PARAM_TEXT);
 
