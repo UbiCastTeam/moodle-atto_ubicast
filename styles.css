@@ -1,11 +1,26 @@
-.mform.atto-ubicast-form fieldset.hidden {
+/* Style for atto editor ubicast form. */
+/* Some lines are used for custom themes. */
+#id_resource_atto_ubicast legend {
+    display: none;
+}
+
+#id_resource_atto_ubicast .fitem {
     display: block;
+    flex: none;
 }
 
-.mform.atto-ubicast-form .fitem div.fitemtitle {
+#id_resource_atto_ubicast .fitem div {
+    margin-left: 0;
     width: 40%;
+    display: block;
+    float: left;
+    max-width: none;
+    flex: none;
 }
 
-.mform.atto-ubicast-form .fitem .felement {
+#id_resource_atto_ubicast .fitem div.felement {
     margin-left: 45%;
+    width: auto;
+    display: block;
+    float: none;
 }
