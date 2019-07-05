@@ -11,7 +11,7 @@ This Atto button plugin allows users to add media from an UbiCast MediaServer in
 
 * Adding a media
 
-![Adding a media](../assets/add-media.png)
+![Adding a media](../assets/insert-media.png)
 
 1. Click on the MediaServer button.
 2. Click on "select a resource" and choose which media should be embedded.
@@ -19,11 +19,11 @@ This Atto button plugin allows users to add media from an UbiCast MediaServer in
 
 * Professor view
 
-![Professor view](../assets/professor-view.png)
+![Professor view](../assets/professor-view.jpg)
 
 * Student view
 
-![Student view](../assets/student-view.png)
+![Student view](../assets/student-view.jpg)
 
 
 Dependencies:
