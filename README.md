@@ -40,7 +40,7 @@ Installation:
 * Visit Moodle as administrator
 * Navigate to Dashboard (upgrade your Moodle)
 * Navigate to Site administration > Plugins > Text editors > Atto HTML editor > Atto toolbar settings
-* Add the `ubicast = ubicast` in Toolbar config.
+* Add `ubicast` in the `files` section of the toolbar config (for example, the `files` section may be `files = image, media, recordrtc, managefiles, ubicast`) or add `ubicast = ubicast` at the end.
 
 
 Development:
