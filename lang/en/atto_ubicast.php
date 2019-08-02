@@ -28,4 +28,4 @@ $string['width'] = 'Width';
 $string['height'] = 'Height';
 $string['inputsubmit'] = 'Insert';
 
-$string['privacy:metadata'] = 'The atto_link plugin does not store any personal data.';
+$string['privacy:metadata'] = 'The atto_ubicast plugin does not store any personal data.';
