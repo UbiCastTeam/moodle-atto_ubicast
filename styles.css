@@ -9,7 +9,7 @@
     flex: none;
 }
 
-#id_resource_atto_ubicast .fitem div {
+#id_resource_atto_ubicast .fitem > div {
     margin-left: 0;
     width: 40%;
     display: block;
@@ -18,7 +18,7 @@
     flex: none;
 }
 
-#id_resource_atto_ubicast .fitem div.felement {
+#id_resource_atto_ubicast .fitem > div.felement {
     margin-left: 45%;
     width: auto;
     display: block;

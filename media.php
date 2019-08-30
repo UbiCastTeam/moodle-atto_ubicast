@@ -22,14 +22,14 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('../../../../../config.php');
-require_once("$CFG->dirroot/lib/editor/atto/plugins/ubicast/mod_form.php");
+require_once(__DIR__.'/../../../../../config.php');
+require_once(__DIR__.'/mod_form.php');
 
 $context = context_system::instance();
 require_login();
 require_capability('mod/ubicast:view', $context);
 $PAGE->set_context($context);
-$url = new moodle_url("$CFG->dirroot/lib/editor/atto/plugins/ubicast/media.php");
+$url = new moodle_url($CFG->dirroot.'/lib/editor/atto/plugins/ubicast/media.php');
 $PAGE->set_url($url);
 
 $mform = new mod_ubicast_mod_form();

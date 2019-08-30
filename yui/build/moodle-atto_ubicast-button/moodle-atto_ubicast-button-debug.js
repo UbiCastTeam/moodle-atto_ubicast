@@ -17,12 +17,10 @@ YUI.add('moodle-atto_ubicast-button', function (Y, NAME) {
 * @class button
 * @extends M.editor_atto.EditorPlugin
 */
-/* global $ */
 /* global M */
-"use strict";
+/* global Y */
 
 var PLUGINNAME = 'atto_ubicast';
-var BUTTON_SELECTOR = '.atto_ubicast_button';
 var courseId = 0;
 var loadFiles = true;
 
@@ -44,11 +42,12 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
             callback: this.openChoicesDialogue
         });
         if (loadFiles) {
-            $.getScript("/mod/ubicast/statics/jquery.min.js?_=11");
-            $.getScript("/mod/ubicast/statics/media_selector.js?_=11");
             courseId = getCourseId();
             if (getCourseId() < 2) {
-                $(BUTTON_SELECTOR).hide();
+                var btns = document.getElementsByClassName('atto_ubicast_button');
+                for (var i=0; i < btns.length; i ++) {
+                    btns[i].style.display = 'none';
+                }
             }
             loadFiles = false;
         }
@@ -80,14 +79,23 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
             focusAfterHide: true
         });
 
-        // Set the dialogue content, and then show the dialogue.
-        var url = '/lib/editor/atto/plugins/ubicast/media.php';
+        // Load MediaSelector if not already done
+        if (!window.MediaSelector) {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = window.M.cfg.wwwroot + '/mod/ubicast/statics/media_selector.js?_=12';
+            var body = document.getElementsByTagName('body');
+            body[0].appendChild(script);
+        }
+
+        // Get the dialogue content, and then show the dialogue.
         var self = this;
-        $.ajax({
-            url: url,
-            type: 'GET',
-            success: function(data) {
-                var content = Y.Node.create(data);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                var formId = 'id_resource_atto_ubicast_' + new Date().getTime();
+                var content = Y.Node.create(this.responseText);
+                content.set('id', formId);
                 var bottom = Y.Node.create('<div style="text-align: center;"></div>');
                 var submit = M.util.get_string('inputsubmit', PLUGINNAME);
                 bottom.append(Y.Node.create('<button type="submit" class="submit">' + submit + '</button>'));
@@ -95,13 +103,18 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
                 content.on('submit', self._setVideo, self);
                 self._dialogContent = content;
                 dialogue.set('bodyContent', content).show();
-                window.mediaSelector = new window.MediaSelector({
-                   moodleURL: window.M.cfg.wwwroot + '/mod/ubicast/lti.php?id=' + courseId,
-                   mediaserverURL: $(data).find('#ms_mediaserverURL').val(),
-                   target: 'id_resource_atto_ubicast'
-                });
+                setTimeout(function () {
+                    // Use setTimeout to wait for MediaSelector loading.
+                    window.mediaSelector = new window.MediaSelector({
+                       moodleURL: window.M.cfg.wwwroot + '/mod/ubicast/lti.php?id=' + courseId,
+                       mediaserverURL: content.one('#ms_mediaserverURL').get('value'),
+                       target: formId
+                    });
+                }, (window.MediaSelector ? 10 : 2000));
             }
-        });
+        };
+        xhttp.open('GET', window.M.cfg.wwwroot + '/lib/editor/atto/plugins/ubicast/media.php', true);
+        xhttp.send();
     },
 
     /**
@@ -125,9 +138,10 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
             var host = this.get('host');
             this.editor.focus();
             host.setSelection(this._currentSelection);
+            var url = '/lib/editor/atto/plugins/ubicast/view.php?course={{ courseId }}&video={{ mediaId }}/';
             var videoTemplate = '<iframe class="mediaserver-iframe" ' +
                 'style="width: {{ mediaW }}; height: {{ mediaH }}; background-color: #ddd;" ' +
-                'src="/lib/editor/atto/plugins/ubicast/view.php?course={{ courseId }}&video={{ mediaId }}/" ' +
+                'src="' + window.M.cfg.wwwroot + url + '" ' +
                 'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen">' +
                 '</iframe>';
 
