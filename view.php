@@ -24,8 +24,8 @@
 
 require_once('../../../../../config.php');
 require_once("$CFG->dirroot/mod/ubicast/locallib.php");
-$courseid = required_param('course', PARAM_TEXT);
-$videoid = required_param('video', PARAM_TEXT);
+$courseid = required_param('course', PARAM_INT);
+$videoid = required_param('video', PARAM_ALPHANUM);
 
 $context = context_system::instance();
 require_login();
