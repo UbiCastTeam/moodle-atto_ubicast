@@ -24,3 +24,7 @@
     display: block;
     float: none;
 }
+
+.atto_ubicast {
+    opacity: 0.5;
+}

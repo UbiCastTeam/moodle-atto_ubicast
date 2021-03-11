@@ -16,7 +16,6 @@
 * @extends M.editor_atto.EditorPlugin
 */
 /* global M */
-/* global Y */
 
 var PLUGINNAME = 'atto_ubicast';
 var courseId = 0;
@@ -34,6 +33,9 @@ function getCourseId() {
 
 Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.EditorPlugin, [], {
     initializer: function() {
+        if (!this.get('enabled')) {
+            return;
+        }
         this.addButton({
             icon: 'icon',
             iconComponent: PLUGINNAME,
@@ -132,17 +134,27 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
         var mediaId = this._dialogContent.one('#id_mediaid').get('value');
         var mediaW = this._dialogContent.one('#media_width').get('value');
         var mediaH = this._dialogContent.one('#media_height').get('value');
+        var mediaThumb = this._dialogContent.one('input[name=mediaimg]').get('value');
+        var videoTemplate;
         if (mediaId) {
             var host = this.get('host');
             this.editor.focus();
             host.setSelection(this._currentSelection);
-            var url = '/lib/editor/atto/plugins/ubicast/view.php?course={{ courseId }}&video={{ mediaId }}/';
-            var videoTemplate = '<iframe class="mediaserver-iframe" ' +
-                'style="width: {{ mediaW }}; height: {{ mediaH }}; background-color: #ddd;" ' +
-                'src="' + window.M.cfg.wwwroot + url + '" ' +
-                'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen">' +
-                '</iframe>';
-
+            if (this.get('usefilter') == 1) {
+                // var permalink = this.get('ubicast_url') + '/permalink/' + mediaId + '/';
+                var thumburl = this.get('ubicast_url') + mediaThumb;
+                videoTemplate = '<img class="atto_ubicast courseid_{{ courseId }}_mediaid_{{ mediaId }}"' +
+                    'style="display: block; width: {{ mediaW }}; height: {{ mediaH }};"' +
+                    ' src="' + thumburl + '"/>';
+            }
+            else {
+                var url = '/lib/editor/atto/plugins/ubicast/view.php?course={{ courseId }}&video={{ mediaId }}/';
+                videoTemplate = '<iframe class="mediaserver-iframe" ' +
+                    'style="width: {{ mediaW }}; height: {{ mediaH }}; background-color: #ddd;" ' +
+                    'src="' + window.M.cfg.wwwroot + url + '" ' +
+                    'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen">' +
+                    '</iframe>';
+            }
             var template = Y.Handlebars.compile(videoTemplate);
             var data = {
                 courseId: courseId,
@@ -157,4 +169,12 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
         }
         return false;
     }
-});
+},
+    {
+        ATTRS: {
+            enabled: null,
+            ubicast_url: null,
+            usefilter: null
+        }
+    }
+);
