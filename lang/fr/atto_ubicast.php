@@ -29,3 +29,8 @@ $string['height'] = 'Hauteur';
 $string['inputsubmit'] = 'Insérer';
 
 $string['privacy:metadata'] = 'Le plugin atto_ubicast ne stocke aucune information personnelle.';
+
+$string['usefilter'] = 'Utiliser le filtre';
+$string['usefilter_desc'] = 'Utiliser filter_ubicast ; ceci permet l\'utilisation par les étudiants autant que par les enseignants. Laissez désactivé pour conserver le fonctionnement d\'origine.';
+$string['filternotinstalled'] = 'Le filtre filter_ubicast n\'est pas installé ou est désactivé ; vous ne pouvez donc pas utiliser cette option.';
+$string['ubicast:use'] = 'Ajouter une ressource du MediaServer';

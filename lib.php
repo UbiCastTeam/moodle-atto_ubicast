@@ -39,3 +39,21 @@ function atto_ubicast_strings_for_js() {
         'atto_ubicast'
     );
 }
+
+/**
+ * Sends the parameters to the JS module.
+ *
+ * @return array
+ */
+function atto_ubicast_params_for_js() {
+    global $PAGE;
+
+    $params = [
+        'enabled'   => has_capability('atto/ubicast:use', $PAGE->context),
+        'ubicast_url' => trim(get_config('ubicast', 'ubicast_url'), '/'),
+        'usefilter' => get_config('atto_ubicast', 'usefilter')
+    ];
+
+    return $params;
+}
+

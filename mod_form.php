@@ -43,6 +43,9 @@ class mod_ubicast_mod_form extends moodleform {
         $mform->addHelpButton('mediaid', 'form_resource', 'ubicast');
         $mform->setType('mediaid', PARAM_TEXT);
 
+        $mform->addElement('hidden', 'mediaimg', 'mediaimg', ['size' => '20']);
+        $mform->setType('mediaimg', PARAM_PATH);
+
         $mform->addElement('text', 'media_width', get_string('width', 'atto_ubicast'), ['size' => '20', 'value' => '100%']);
         $mform->addElement('text', 'media_height', get_string('height', 'atto_ubicast'), ['size' => '20', 'value' => '300px']);
 

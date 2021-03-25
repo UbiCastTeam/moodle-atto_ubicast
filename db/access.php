@@ -15,22 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * ubicast atto plugin content version file.
- *
  * @package    atto_ubicast
- * @copyright  2019 UbiCast {@link https://www.ubicast.eu}
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2021 UbiCast {@link https://www.ubicast.eu}
+ * @author     Nicolas Dunand <Nicolas.Dunand@unil.ch>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2021010100;
-$plugin->requires = 2015111610;  // 3.0.
-$plugin->component = 'atto_ubicast';
-$plugin->release = '1.2.1 (Build: 2021010100)';
-$plugin->maturity = MATURITY_STABLE;
-$plugin->cron = 0;
+$capabilities = [
 
-$plugin->dependencies = [
-    'mod_ubicast' => 2021010100,
+    'atto/ubicast:use' => [
+        'riskbitmask'  => RISK_SPAM,
+        'captype'      => 'write',
+        'contextlevel' => 50,
+        'archetypes'   => [
+            'user' => CAP_ALLOW,
+        ],
+    ],
+
 ];
