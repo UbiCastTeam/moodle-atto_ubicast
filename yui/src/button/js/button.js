@@ -16,7 +16,6 @@
 * @extends M.editor_atto.EditorPlugin
 */
 /* global M */
-/* global Y */
 
 var PLUGINNAME = 'atto_ubicast';
 var courseId = 0;

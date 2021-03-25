@@ -18,7 +18,6 @@ YUI.add('moodle-atto_ubicast-button', function (Y, NAME) {
 * @extends M.editor_atto.EditorPlugin
 */
 /* global M */
-/* global Y */
 
 var PLUGINNAME = 'atto_ubicast';
 var courseId = 0;
