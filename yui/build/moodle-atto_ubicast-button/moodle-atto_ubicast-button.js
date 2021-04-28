@@ -85,7 +85,7 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
         if (!window.MediaSelector) {
             var script = document.createElement('script');
             script.type = 'text/javascript';
-            script.src = window.M.cfg.wwwroot + '/mod/ubicast/statics/media_selector.js?_=12';
+            script.src = window.M.cfg.wwwroot + '/mod/ubicast/statics/media_selector.js?_=13';
             var body = document.getElementsByTagName('body');
             body[0].appendChild(script);
         }
