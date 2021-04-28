@@ -146,9 +146,8 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
                 videoTemplate = '<img class="atto_ubicast courseid_{{ courseId }}_mediaid_{{ mediaId }}"' +
                     'style="display: block; width: {{ mediaW }}; height: {{ mediaH }};"' +
                     ' src="' + thumburl + '"/>';
-            }
-            else {
-                var url = '/lib/editor/atto/plugins/ubicast/view.php?course={{ courseId }}&video={{ mediaId }}/';
+            } else {
+                var url = '/lib/editor/atto/plugins/ubicast/view.php?course={{ courseId }}&video={{ mediaId }}';
                 videoTemplate = '<iframe class="mediaserver-iframe" ' +
                     'style="width: {{ mediaW }}; height: {{ mediaH }}; background-color: #ddd;" ' +
                     'src="' + window.M.cfg.wwwroot + url + '" ' +

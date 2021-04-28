@@ -32,8 +32,6 @@ require_login();
 require_capability('mod/ubicast:view', $context);
 $PAGE->set_context($context);
 
-$config = get_config('ubicast');
-$url = $config->ubicast_url.'/lti/$videoid/';
 $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
 
-ubicast_launch_tool($course, null, $videoid);  // Echo inside function.
+ubicast_launch_tool($course, null, $videoid . '/');  // Echo inside function.
