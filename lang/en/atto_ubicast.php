@@ -23,7 +23,7 @@
  */
 
 // Moodle required strings.
-$string['pluginname'] = 'Insert a media from MediaServer';
+$string['pluginname'] = 'Insert a media from Nudgis';
 $string['width'] = 'Width';
 $string['height'] = 'Height';
 $string['inputsubmit'] = 'Insert';
@@ -33,4 +33,4 @@ $string['privacy:metadata'] = 'The atto_ubicast plugin does not store any person
 $string['usefilter'] = 'Use filter';
 $string['usefilter_desc'] = 'Use filter_ubicast; this allows for usage by students as well as teachers. Leave unchecked unless advised otherwise.';
 $string['filternotinstalled'] = 'The filter_ubicast filter is not installed or is deactivated; this option is therefore not available.';
-$string['ubicast:use'] = 'Add a MediaServer resource';
+$string['ubicast:use'] = 'Add a Nudgis resource';

@@ -50,8 +50,8 @@ class mod_ubicast_mod_form extends moodleform {
         $mform->addElement('text', 'media_height', get_string('height', 'atto_ubicast'), ['size' => '20', 'value' => '300px']);
 
         $config = get_config('ubicast');
-        $mform->addElement('hidden', 'ms_mediaserverURL', $config->ubicast_url);
-        foreach (['ms_mediaserverURL', 'media_width', 'media_height'] as $name) {
+        $mform->addElement('hidden', 'ms_nudgisURL', $config->ubicast_url);
+        foreach (['ms_nudgisURL', 'media_width', 'media_height'] as $name) {
             $mform->setType($name, PARAM_TEXT);
             $elem =& $mform->getElement($name);
             $elem->_attributes['id'] = $name;

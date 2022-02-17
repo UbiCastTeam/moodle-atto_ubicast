@@ -109,7 +109,7 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
                     // Use setTimeout to wait for MediaSelector loading.
                     window.mediaSelector = new window.MediaSelector({
                        moodleURL: window.M.cfg.wwwroot + '/mod/ubicast/lti.php?id=' + courseId,
-                       mediaserverURL: content.one('#ms_mediaserverURL').get('value'),
+                       nudgisURL: content.one('#ms_nudgisURL').get('value'),
                        target: formId
                     });
                 }, (window.MediaSelector ? 10 : 2000));
@@ -150,7 +150,7 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
                     ' src="' + thumburl + '"/>';
             } else {
                 var url = '/lib/editor/atto/plugins/ubicast/view.php?course={{ courseId }}&video={{ mediaId }}';
-                videoTemplate = '<iframe class="mediaserver-iframe" ' +
+                videoTemplate = '<iframe class="nudgis-iframe" ' +
                     'style="width: {{ mediaW }}; height: {{ mediaH }}; background-color: #ddd;" ' +
                     'src="' + window.M.cfg.wwwroot + url + '" ' +
                     'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen">' +
