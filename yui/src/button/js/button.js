@@ -75,7 +75,7 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
 
         var dialogue = this.getDialogue({
             headerContent: M.util.get_string('pluginname', PLUGINNAME),
-            width: '425px',
+            width: '450px',
             focusAfterHide: true
         });
 
@@ -83,7 +83,7 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
         if (!window.MediaSelector) {
             var script = document.createElement('script');
             script.type = 'text/javascript';
-            script.src = window.M.cfg.wwwroot + '/mod/ubicast/statics/media_selector.js?_=13';
+            script.src = window.M.cfg.wwwroot + '/mod/ubicast/statics/media_selector.js?_=14';
             var body = document.getElementsByTagName('body');
             body[0].appendChild(script);
         }
@@ -106,9 +106,10 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
                 setTimeout(function () {
                     // Use setTimeout to wait for MediaSelector loading.
                     window.mediaSelector = new window.MediaSelector({
-                       moodleURL: window.M.cfg.wwwroot + '/mod/ubicast/lti.php?id=' + courseId,
-                       nudgisURL: content.one('#ms_nudgisURL').get('value'),
-                       target: formId
+                        moodleURL: window.M.cfg.wwwroot + '/mod/ubicast/lti.php?id=' + courseId,
+                        nudgisURL: content.one('#nudgis_url').get('value'),
+                        filterBySpeaker: content.one('#nudgis_speaker_filter').get('value') === '1',
+                        target: formId
                     });
                 }, (window.MediaSelector ? 10 : 2000));
             }

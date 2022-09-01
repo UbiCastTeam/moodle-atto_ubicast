@@ -31,6 +31,8 @@ class mod_ubicast_mod_form extends moodleform {
         global $CFG, $DB, $COURSE;
         $mform = $this->_form;
 
+        $config = get_config('ubicast');
+
         $mform->addElement('header', 'resource_atto_ubicast', get_string('form_resource_header', 'ubicast'));
         $mform->addElement('html', '
             <div class="fitem">
@@ -49,9 +51,10 @@ class mod_ubicast_mod_form extends moodleform {
         $mform->addElement('text', 'media_width', get_string('width', 'atto_ubicast'), ['size' => '20', 'value' => '100%']);
         $mform->addElement('text', 'media_height', get_string('height', 'atto_ubicast'), ['size' => '20', 'value' => '300px']);
 
-        $config = get_config('ubicast');
-        $mform->addElement('hidden', 'ms_nudgisURL', $config->ubicast_url);
-        foreach (['ms_nudgisURL', 'media_width', 'media_height'] as $name) {
+        $mform->addElement('hidden', 'nudgis_url', $config->ubicast_url);
+        $mform->addElement('hidden', 'nudgis_speaker_filter', $config->ubicast_speakerfilter);
+
+        foreach (['nudgis_url', 'nudgis_speaker_filter', 'media_width', 'media_height'] as $name) {
             $mform->setType($name, PARAM_TEXT);
             $elem =& $mform->getElement($name);
             $elem->_attributes['id'] = $name;
