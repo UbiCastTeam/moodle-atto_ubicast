@@ -23,7 +23,7 @@ var loadFiles = true;
 
 function getCourseId() {
     for (var i = 0; i < window.document.body.classList.length; i++) {
-        if (window.document.body.classList[i].startsWith('course')) {
+        if (window.document.body.classList[i].startsWith('course-')) {
             var arr = window.document.body.classList[i].split('-');
             return arr.length === 2 && parseInt(arr[1], 10) || 0;
         }
@@ -140,7 +140,7 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
             var host = this.get('host');
             this.editor.focus();
             host.setSelection(this._currentSelection);
-            if (this.get('usefilter') == 1) {
+            if (this.get('usefilter') === 1) {
                 // var permalink = this.get('ubicast_url') + '/permalink/' + mediaId + '/';
                 var thumburl = this.get('ubicast_url') + mediaThumb;
                 videoTemplate = '<img class="atto_ubicast courseid_{{ courseId }}_mediaid_{{ mediaId }}"' +

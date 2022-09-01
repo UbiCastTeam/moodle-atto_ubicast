@@ -142,7 +142,7 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
             var host = this.get('host');
             this.editor.focus();
             host.setSelection(this._currentSelection);
-            if (this.get('usefilter') == 1) {
+            if (this.get('usefilter') === 1) {
                 // var permalink = this.get('ubicast_url') + '/permalink/' + mediaId + '/';
                 var thumburl = this.get('ubicast_url') + mediaThumb;
                 videoTemplate = '<img class="atto_ubicast courseid_{{ courseId }}_mediaid_{{ mediaId }}"' +
