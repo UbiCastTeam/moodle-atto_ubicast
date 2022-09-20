@@ -39,18 +39,22 @@ class mod_ubicast_mod_form extends moodleform {
                 </div>
             </div>');
 
-        $mform->addElement('text', 'mediaid', get_string('form_resource', 'ubicast'), ['size' => '20']);
+        $mform->addElement('text', 'mediaid', get_string('form_resource', 'ubicast'),
+            ['size' => '20', 'onchange' => "javascript: this.value = ((new RegExp('(?:^|/)([cvlp][a-z0-9]{19})($:^|/)').exec(this.value)) || [null, this.value])[1]"]);
         $mform->addHelpButton('mediaid', 'form_resource', 'ubicast');
         $mform->setType('mediaid', PARAM_TEXT);
 
-        $elem =& $mform->addElement('hidden', 'media_img', 'media_img', ['size' => '20']);
+        $elem =& $mform->addElement('hidden', 'media_img', 'media_img',
+            ['size' => '100']);
         $elem->_attributes['id'] = 'id_media_img';
         $mform->setType('media_img', PARAM_PATH);
 
-        $mform->addElement('text', 'media_width', get_string('width', 'atto_ubicast'), ['size' => '20', 'value' => '100%']);
+        $mform->addElement('text', 'media_width', get_string('width', 'atto_ubicast'),
+            ['size' => '20', 'value' => '100%']);
         $mform->setType('media_width', PARAM_TEXT);
 
-        $mform->addElement('text', 'media_height', get_string('height', 'atto_ubicast'), ['size' => '20', 'value' => '300px']);
+        $mform->addElement('text', 'media_height', get_string('height', 'atto_ubicast'),
+            ['size' => '20', 'value' => '300px']);
         $mform->setType('media_height', PARAM_TEXT);
     }
 }
