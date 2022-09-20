@@ -50,10 +50,10 @@ function atto_ubicast_params_for_js() {
 
     $params = [
         'enabled'   => has_capability('atto/ubicast:use', $PAGE->context),
-        'ubicast_url' => trim(get_config('ubicast', 'ubicast_url'), '/'),
-        'usefilter' => get_config('atto_ubicast', 'usefilter')
+        'ubicastURL' => trim(get_config('ubicast', 'ubicast_url'), '/'),
+        'speakerContent' => get_config('ubicast', 'ubicast_speakerfilter'),
+        'useFilter' => get_config('atto_ubicast', 'usefilter')
     ];
 
     return $params;
 }
-

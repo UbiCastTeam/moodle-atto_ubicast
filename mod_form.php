@@ -31,8 +31,6 @@ class mod_ubicast_mod_form extends moodleform {
         global $CFG, $DB, $COURSE;
         $mform = $this->_form;
 
-        $config = get_config('ubicast');
-
         $mform->addElement('header', 'resource_atto_ubicast', get_string('form_resource_header', 'ubicast'));
         $mform->addElement('html', '
             <div class="fitem">
@@ -45,19 +43,14 @@ class mod_ubicast_mod_form extends moodleform {
         $mform->addHelpButton('mediaid', 'form_resource', 'ubicast');
         $mform->setType('mediaid', PARAM_TEXT);
 
-        $mform->addElement('hidden', 'mediaimg', 'mediaimg', ['size' => '20']);
-        $mform->setType('mediaimg', PARAM_PATH);
+        $elem =& $mform->addElement('hidden', 'media_img', 'media_img', ['size' => '20']);
+        $elem->_attributes['id'] = 'id_media_img';
+        $mform->setType('media_img', PARAM_PATH);
 
         $mform->addElement('text', 'media_width', get_string('width', 'atto_ubicast'), ['size' => '20', 'value' => '100%']);
+        $mform->setType('media_width', PARAM_TEXT);
+
         $mform->addElement('text', 'media_height', get_string('height', 'atto_ubicast'), ['size' => '20', 'value' => '300px']);
-
-        $mform->addElement('hidden', 'nudgis_url', $config->ubicast_url);
-        $mform->addElement('hidden', 'nudgis_speaker_filter', $config->ubicast_speakerfilter);
-
-        foreach (['nudgis_url', 'nudgis_speaker_filter', 'media_width', 'media_height'] as $name) {
-            $mform->setType($name, PARAM_TEXT);
-            $elem =& $mform->getElement($name);
-            $elem->_attributes['id'] = $name;
-        }
+        $mform->setType('media_height', PARAM_TEXT);
     }
 }

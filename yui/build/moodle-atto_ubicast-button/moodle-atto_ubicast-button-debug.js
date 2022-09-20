@@ -18,20 +18,11 @@ YUI.add('moodle-atto_ubicast-button', function (Y, NAME) {
 * @extends M.editor_atto.EditorPlugin
 */
 /* global M */
+/* global $ */
+/* YUI doc: https://clarle.github.io/yui3/yui/docs/node/ */
 
 var PLUGINNAME = 'atto_ubicast';
-var courseId = 0;
 var loadFiles = true;
-
-function getCourseId() {
-    for (var i = 0; i < window.document.body.classList.length; i++) {
-        if (window.document.body.classList[i].startsWith('course-')) {
-            var arr = window.document.body.classList[i].split('-');
-            return arr.length === 2 && parseInt(arr[1], 10) || 0;
-        }
-    }
-    return 0;
-}
 
 Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.EditorPlugin, [], {
     initializer: function() {
@@ -44,10 +35,9 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
             callback: this.openChoicesDialogue
         });
         if (loadFiles) {
-            courseId = getCourseId();
-            if (getCourseId() < 2) {
+            if (this.getCourseId() < 2) {
                 var btns = document.getElementsByClassName('atto_ubicast_button');
-                for (var i=0; i < btns.length; i ++) {
+                for (var i = 0; i < btns.length; i++) {
                     btns[i].style.display = 'none';
                 }
             }
@@ -59,6 +49,30 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
     _currentSelection: null,
 
     _dialogContent: null,
+
+    _courseId: null,
+
+    /**
+    * Function to retrieve the course id from the current page.
+    *
+    * @method getCourseId
+    * @return {Integer} The cource id.
+    * @private
+    */
+    getCourseId: function() {
+        if (this._courseId === null) {
+            var courseId = 0;
+            for (var i = 0; i < window.document.body.classList.length; i++) {
+                if (window.document.body.classList[i].startsWith('course-')) {
+                    var arr = window.document.body.classList[i].split('-');
+                    courseId = arr.length === 2 && parseInt(arr[1], 10) || 0;
+                    break;
+                }
+            }
+            this._courseId = courseId;
+        }
+        return this._courseId;
+    },
 
     /**
     * Open a modal to offer different choices.
@@ -78,6 +92,7 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
         var dialogue = this.getDialogue({
             headerContent: M.util.get_string('pluginname', PLUGINNAME),
             width: '450px',
+            fixedcenter: true,
             focusAfterHide: true
         });
 
@@ -100,17 +115,24 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
                 content.set('id', formId);
                 var bottom = Y.Node.create('<div style="text-align: center;"></div>');
                 var submit = M.util.get_string('inputsubmit', PLUGINNAME);
-                bottom.append(Y.Node.create('<button type="submit" class="submit">' + submit + '</button>'));
+                bottom.append(Y.Node.create('<button type="submit" class="btn btn-primary">' + submit + '</button>'));
                 content.append(bottom);
-                content.on('submit', self._setVideo, self);
                 self._dialogContent = content;
+                content.on('submit', self._setVideo, self);
+                var fieldset = content.one('fieldset');
+                if (fieldset) {
+                    // The fieldset can be null with Moodle < 4.0
+                    fieldset.setStyle('overflow', 'auto');
+                    fieldset.setStyle('padding', '20px');
+                    fieldset.setStyle('max-height', 0.7 * $(window).height());
+                }
                 dialogue.set('bodyContent', content).show();
-                setTimeout(function () {
+                setTimeout(function() {
                     // Use setTimeout to wait for MediaSelector loading.
                     window.mediaSelector = new window.MediaSelector({
-                        moodleURL: window.M.cfg.wwwroot + '/mod/ubicast/lti.php?id=' + courseId,
-                        nudgisURL: content.one('#nudgis_url').get('value'),
-                        filterBySpeaker: content.one('#nudgis_speaker_filter').get('value') === '1',
+                        moodleURL: window.M.cfg.wwwroot + '/mod/ubicast/lti.php?id=' + self.getCourseId(),
+                        nudgisURL: self.get('ubicastURL'),
+                        filterBySpeaker: self.get('speakerContent') === '1',
                         target: formId
                     });
                 }, (window.MediaSelector ? 10 : 2000));
@@ -125,6 +147,7 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
     *
     * @method _setVideo
     * @param {EventFacade} event
+    * @return {Boolean} false
     * @private
     */
     _setVideo: function(event) {
@@ -135,17 +158,16 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
         }).hide();
 
         var mediaId = this._dialogContent.one('#id_mediaid').get('value');
-        var mediaW = this._dialogContent.one('#media_width').get('value');
-        var mediaH = this._dialogContent.one('#media_height').get('value');
-        var mediaThumb = this._dialogContent.one('input[name=mediaimg]').get('value');
+        var mediaW = this._dialogContent.one('#id_media_width').get('value');
+        var mediaH = this._dialogContent.one('#id_media_height').get('value');
+        var mediaThumb = this._dialogContent.one('#id_media_img').get('value');
         var videoTemplate;
         if (mediaId) {
             var host = this.get('host');
             this.editor.focus();
             host.setSelection(this._currentSelection);
-            if (this.get('usefilter') === 1) {
-                // var permalink = this.get('ubicast_url') + '/permalink/' + mediaId + '/';
-                var thumburl = this.get('ubicast_url') + mediaThumb;
+            if (this.get('useFilter') === 1) {
+                var thumburl = this.get('ubicastURL') + mediaThumb;
                 videoTemplate = '<img class="atto_ubicast courseid_{{ courseId }}_mediaid_{{ mediaId }}"' +
                     'style="display: block; width: {{ mediaW }}; height: {{ mediaH }};"' +
                     ' src="' + thumburl + '"/>';
@@ -159,7 +181,7 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
             }
             var template = Y.Handlebars.compile(videoTemplate);
             var data = {
-                courseId: courseId,
+                courseId: this.getCourseId(),
                 mediaId: mediaId,
                 mediaW: mediaW,
                 mediaH: mediaH
@@ -175,8 +197,9 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
     {
         ATTRS: {
             enabled: null,
-            ubicast_url: null,
-            usefilter: null
+            ubicastURL: null,
+            speakerContent: null,
+            useFilter: null
         }
     }
 );
