@@ -156,15 +156,15 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
         }).hide();
 
         var mediaId = this._dialogContent.one('#id_mediaid').get('value');
-        var mediaW = this._dialogContent.one('#id_media_width').get('value');
-        var mediaH = this._dialogContent.one('#id_media_height').get('value');
-        var mediaThumb = this._dialogContent.one('#id_media_img').get('value');
+        var mediaW = this._dialogContent.one('#id_mediawidth').get('value');
+        var mediaH = this._dialogContent.one('#id_mediaheight').get('value');
+        var mediaThumb = this._dialogContent.one('#id_mediaimg').get('value') || '/static/mediaserver/images/video.svg';
         var videoTemplate;
         if (mediaId) {
             var host = this.get('host');
             this.editor.focus();
             host.setSelection(this._currentSelection);
-            if (this.get('useFilter') === 1) {
+            if (this.get('useFilter') === '1') {
                 var thumburl = this.get('ubicastURL') + mediaThumb;
                 videoTemplate = '<img class="atto_ubicast courseid_{{ courseId }}_mediaid_{{ mediaId }}"' +
                     'style="display: block; width: {{ mediaW }}; height: {{ mediaH }};"' +
