@@ -35,7 +35,7 @@ class mod_ubicast_mod_form extends moodleform {
         $mform->addElement('html', '
             <div class="fitem">
                 <div class="felement" style="margin: 0;">
-                    <iframe class="ubicast-iframe" style="margin: 0; width: 100%; height: 230px;" src="" frameborder="0"></iframe>
+                    <iframe class="ubicast-iframe" style="margin: 0; width: 100%; height: 360px;" src="" frameborder="0"></iframe>
                 </div>
             </div>');
 
