@@ -166,7 +166,7 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
             host.setSelection(this._currentSelection);
             if (this.get('useFilter') === '1') {
                 var thumburl = this.get('ubicastURL') + mediaThumb;
-                videoTemplate = '<img class="atto_ubicast courseid_{{ courseId }}_mediaid_{{ mediaId }}"' +
+                videoTemplate = '<img class="atto_ubicast mediaid_{{ mediaId }}"' +
                     'style="display: block; width: {{ mediaW }}; height: {{ mediaH }};"' +
                     ' src="' + thumburl + '"/>';
             } else {
