@@ -122,7 +122,7 @@ Y.namespace('M.atto_ubicast').Button = Y.Base.create('button', Y.M.editor_atto.E
                     // The fieldset can be null with Moodle < 4.0
                     fieldset.setStyle('overflow', 'auto');
                     fieldset.setStyle('padding', '20px');
-                    fieldset.setStyle('max-height', 0.7 * $(window).height());
+                    fieldset.setStyle('max-height', 0.7 * window.innerHeight);
                 }
                 dialogue.set('bodyContent', content).show();
                 setTimeout(function() {
